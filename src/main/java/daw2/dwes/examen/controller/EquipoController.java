@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("equipos")
+@RequestMapping("/equipos")
 public class EquipoController {
 
     private final EquipoService equipoService;
@@ -32,6 +32,7 @@ public class EquipoController {
 
     @PostMapping("/crear")
     public String crearEquipo(@Valid @ModelAttribute("equipo") EquipoDTO equipoDTO, BindingResult bindingResult, Model model){
+
         if (bindingResult.hasErrors()){
             model.addAttribute("ligas", Liga.values());
             return "crearEquipo";

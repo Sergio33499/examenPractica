@@ -28,4 +28,11 @@ public class EquipoService {
     public List<Equipo> findAll(){
         return equipoRepository.findAll();
     }
+
+    public boolean existeEquipo(Long id){
+        if (equipoRepository.existsById(id)){
+            return true;
+        }
+        return false;
+    }
 }

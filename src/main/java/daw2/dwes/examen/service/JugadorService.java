@@ -26,4 +26,10 @@ public class JugadorService {
         return jugadorRepository.save(jugador);
     }
 
+    public boolean existeDni(String dni){
+        if (jugadorRepository.existsById(dni)){
+            return true;
+        }
+        return false;
+    }
 }

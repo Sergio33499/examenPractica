@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("jugadores")
+@RequestMapping("/jugadores")
 public class JugadorController {
     private final JugadorService jugadorService;
     private final EquipoService equipoService;
@@ -33,6 +33,20 @@ public class JugadorController {
 
     @PostMapping("/crear")
     public String crearJugador(@Valid @ModelAttribute("jugador") JugadorDTO jugadorDTO, BindingResult bindingResult, Model model){
+
+        if (jugadorService.existeDni(jugadorDTO.getDni())) {
+            bindingResult.rejectValue("dni", "dniDuplicado", "Ya existe un jugador con este DNI");
+        }
+
+        if (!equipoService.existeEquipo(jugadorDTO.getEquipoId())) {
+            bindingResult.rejectValue("equipoId", "equipoInexistente", "El equipo seleccionado no existe");
+        }
+
+        if (!bindingResult.hasFieldErrors("equipoId") && !equipoService.existeEquipo(jugadorDTO.getEquipoId())) {
+            bindingResult.rejectValue("equipoId", "equipoInexistente", "El equipo seleccionado no existe");
+        }
+
+
         if (bindingResult.hasErrors()){
             model.addAttribute("equipos", equipoService.findAll());
             return "crearJugador";

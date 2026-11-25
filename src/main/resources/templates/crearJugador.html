@@ -3,9 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <title>Crear Jugador</title>
 </head>
 <body>
+<h1>Crear Jugador</h1>
+<form th:action="@{/jugadores/crear}" method="POST" th:object="${jugador}">
+
+    <input type="text" id="dni" placeholder="Introduce el DNI" th:field="*{dni}">
+    <span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></span>
+
+    <input type="text" id="nombre" placeholder="Introduce el nombre" th:field="*{nombre}">
+    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+
+    <input type="number"  placeholder="Introduce el salario" th:field="*{salario}" step="0.01">
+    <span th:if="${#fields.hasErrors('salario')}" th:errors="*{salario}"></span>
+
+    <input type="number"  placeholder="Introduce el dorsal" th:field="*{dorsal}">
+    <span th:if="${#fields.hasErrors('dorsal')}" th:errors="*{dorsal}"></span>
+
+    <select id="equipo" th:field="*{equipoId}">
+        <option value="">Selecciona un equipo</option>
+        <option th:each="e : ${equipos}" th:value="${e.id}" th:text="${e.nombre}"></option>
+    </select>
+    <span th:if="${#fields.hasErrors('equipoId')}" th:errors="*{equipoId}"></span>
+
+    <button type="submit">Guardar Jugador</button>
+
+</form>
 
 </body>
 </html>
