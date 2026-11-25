@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crear Equipo</title>
+</head>
+<body>
+<h1>Crear Equipo</h1>
+<form th:action="@{/equipos/crear}" method="POST" th:object="${equipo}">
+
+    <input type="text" id="nombre" placeholder="Introduce el nombre" th:field="*{nombre}">
+    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+
+    <input type="date" id="fechaFundacion" th:field="*{fechaFundacion}">
+    <span th:if="${#fields.hasErrors('fechaFundacion')}" th:errors="*{fechaFundacion}"></span>
+
+    <select id="liga" th:field="*{liga}">
+        <option value="">Selecciona una liga</option>
+        <option th:each="l : ${ligas}" th:value="${l}" th:text="${l}"></option>
+    </select>
+    <span th:if="${#fields.hasErrors('liga')}" th:errors="*{liga}"></span>
+
+    <button type="submit">Guardar Equipo</button>
+</form>
+</body>
+</html>
